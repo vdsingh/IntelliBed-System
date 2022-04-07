@@ -15,9 +15,9 @@ data = {
   "numPeaks":2
 }
 fb = Firebase(config)
-fb.clearTable()
+# fb.clearTable()
 
-# hx = HX711(5,6)
-# hx.reset()
-# hx.set_reference_unit()
-# print(hx.get_weight())
+hx = HX711(5,6)
+hx.reset()
+hx.set_reference_unit()
+print(hx.get_weight())
