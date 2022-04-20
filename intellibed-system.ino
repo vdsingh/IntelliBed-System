@@ -4,7 +4,7 @@
 #include <Firebase_TCP_Client.h>
 #include <WCS.h>
 
-#include "arduino_secrets.h"
+#include <arduino_secrets.h>
 
 char ssid[] = SECRET_SSID;
 char pass[] = SECRET_PASS;
@@ -18,7 +18,17 @@ FirebaseData fbdo;
 Firebase.begin(url, api, ssid, pass);
 Firebase.reconnectWiFi(true);
 
-void setup(){
-  
-}
+void setFbFloat(float data, float timestamp) {
+  if (Firebase.setFloat(fbdo, "/test/".concat(timestamp), 123.456789)) {
 
+    //Success, then read the payload value return from server
+    //This confirmed that your data was set to database as float number
+
+    if (fbdo.dataType() == "float")
+      Serial.println(fbdo.floatData());
+
+  } else {
+    //Failed, then print out the error detail
+    Serial.println(fbdo.errorReason());
+  }
+}
